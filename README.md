@@ -6,9 +6,7 @@
 
 ### Project ScreenShots
 
-![photo](https://github.com/eduardoguette/FanaticsApp/blob/master/Screenshot_1.png?raw=true)
-![photo](https://github.com/eduardoguette/FanaticsApp/blob/master/Screenshot_2.png?raw=true)
-![photo](https://github.com/eduardoguette/FanaticsApp/blob/master/Screenshot_3.png?raw=true)
+![photo](https://raw.githubusercontent.com/eduardoguette/gallery-masonry/main/Desktop.png?raw=true)
 
 ## Conclusiones:
 
