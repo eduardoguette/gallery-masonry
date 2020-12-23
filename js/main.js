@@ -1,33 +1,28 @@
 let page = 1;
+let datos = [];
 let column = 0;
-let datas = []
-function createDivContainer () {
-  
-  if(window.innerWidth >= 960){
-    column = 3
-  }else if(window.innerWidth >= 600){
-    column = 2
-  }else{
-    column = 1
+(function createDivContainer() {
+  if (window.innerWidth >= 960) {
+    column = 3;
+  } else if (window.innerWidth >= 600) {
+    column = 2;
+  } else {
+    column = 1;
   }
-  for(let i = 1; i <= column; i++){
-    let divRoot = document.querySelector('#container')
-    let div = document.createElement('div')
-    divRoot.appendChild(div)
+  for (let i = 1; i <= column; i++) {
+    let divRoot = document.querySelector("#container");
+    let div = document.createElement("div");
+    divRoot.appendChild(div);
   }
-  setTimeout(() => {
-    getApi(column, 1);
-  }, 1200)
-}createDivContainer()
-/* window.addEventListener('resize', () => {
-  page = 1
-  document.getElementById('container').innerHTML = ""
-  createDivContainer()
+})();
+setTimeout(() => {
+  getApi(column, 1);
+}, 1200);
 
-}); */
-
-
-
+window.addEventListener("resize", () => {
+  document.getElementById("container").innerHTML = "";
+  organizarElements(column);
+});
 
 window.addEventListener("scroll", function (e) {
   if (
@@ -35,7 +30,7 @@ window.addEventListener("scroll", function (e) {
     document.documentElement.scrollHeight - 1500
   ) {
     if (!document.querySelector(".loading")) {
-    Loading();
+      Loading();
       setTimeout(() => {
         document.querySelector(".loading").remove();
         getApi(column, page);
@@ -62,22 +57,59 @@ function Loading() {
   container.appendChild(div);
 }
 
-
 async function getApi(column) {
   let count = 1;
-  let url = "https://picsum.photos/v2/list?page=" + page + "&limit=50";
+  let url = "https://picsum.photos/v2/list?page=" + page + "&limit=10";
   const getData = await fetch(url);
   const images = await getData.json();
   page++;
   for (let i in images) {
+    let data = {};
+    data.download_url = images[i].download_url;
+    data.author = images[i].author;
     let selector = "#container > div:nth-child(" + count + ")";
     let $container = document.querySelector(selector);
     let div = document.createElement("div");
-    div.className = "card"
+    div.className = "card";
     div.innerHTML = `
     <a target="_blank" href=${images[i].download_url}>
     <img src=${images[i].download_url} loading="lazy" alt=${images[i].author} width="100%">
-    <p>Author:  ${images[i].author}</p></a>`
+    <p>Author:  ${images[i].author}</p></a>`;
+    datos.push(data);
+    $container.appendChild(div);
+    count++;
+    if (count === column + 1) {
+      count = 1;
+    }
+  }
+}
+
+function organizarElements() {
+  
+  let column = 0;
+  if (window.innerWidth >= 960) {
+    column = 3;
+  } else if (window.innerWidth >= 600) {
+    column = 2;
+  } else {
+    column = 1;
+  }
+  for (let i = 0; i < column; i++) {
+    let divRoot = document.querySelector("#container");
+    let div = document.createElement("div");
+    divRoot.appendChild(div);
+  }
+  let count = 1;
+  let images = datos;
+  for (let i in images) {
+    let selector = "#container > div:nth-child(" + count + ")";
+    let $container = document.querySelector(selector);
+    let div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+    <a target="_blank" href=${images[i].download_url}>
+    <img src=${images[i].download_url} loading="lazy" alt=${images[i].author} width="100%">
+    <p>Author:  ${images[i].author}</p></a>`;
     $container.appendChild(div);
     count++;
     if (count === column + 1) {
