@@ -1,4 +1,4 @@
-## Masonry Gallery [🔗](https://fanatics-app-with-redux-git-master.eduardoguette.vercel.app/)
+## Masonry Gallery [🔗](https://eduardoguette.github.io/gallery-masonry/)
 
 Échale un vistazo a increíbles imágenes y colócalas como wallpaper en tu smarphone o desktop. 
 
