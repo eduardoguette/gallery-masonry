@@ -19,12 +19,12 @@ function createDivContainer () {
     getApi(column, 1);
   }, 1200)
 }createDivContainer()
-window.addEventListener('resize', () => {
+/* window.addEventListener('resize', () => {
   page = 1
   document.getElementById('container').innerHTML = ""
   createDivContainer()
 
-});
+}); */
 
 
 
